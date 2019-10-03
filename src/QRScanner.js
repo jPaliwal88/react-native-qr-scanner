@@ -61,6 +61,8 @@ export default class QRScanner extends PureComponent {
         }}
           captureAudio = {false}
           onBarCodeRead={this._handleBarCodeRead}
+          androidCameraPermissionOptions={null}
+          androidRecordAudioPermissionOptions={null}
           notAuthorizedView={this.props.notAuthorizedView()}
           barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           flashMode={!this.props.flashMode ? RNCamera.Constants.FlashMode.off : RNCamera.Constants.FlashMode.torch}
