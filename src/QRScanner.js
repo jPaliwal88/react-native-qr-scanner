@@ -42,7 +42,12 @@ export default class QRScanner extends PureComponent {
     zoom: 0.2,          // 缩放范围 0 - 1
     translucent: false,
     isRepeatScan: false,
-    cameraType: 'back'
+    cameraType: 'back',
+    notAuthorizedView: () => (
+      <View style={styles.authorizationContainer}>
+        <Text style={styles.notAuthorizedText}>Camera not authorized</Text>
+      </View>
+    ),
   }
 
   render() {
@@ -56,7 +61,7 @@ export default class QRScanner extends PureComponent {
         }}
           captureAudio = {false}
           onBarCodeRead={this._handleBarCodeRead}
-          notAuthorizedView={this.props.notAuthorizedView}
+          notAuthorizedView={this.props.notAuthorizedView()}
           barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
           flashMode={!this.props.flashMode ? RNCamera.Constants.FlashMode.off : RNCamera.Constants.FlashMode.torch}
           zoom={this.props.zoom}
@@ -197,7 +202,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0
-  }
+  },
+  authorizationContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  notAuthorizedText: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
 });
 
 QRScanner.propTypes = {
